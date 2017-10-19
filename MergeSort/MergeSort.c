@@ -2,47 +2,6 @@
 #include <stdlib.h>
 #define MAXLEN 10
 
-long *Load_File (char *Filename, int *Size)
-{
-
-	FILE * input = fopen(Filename, "r") ;
-	if (input == NULL) {
-		return NULL ;
-	}
-
-	fseek(input, 0, SEEK_SET) ;
-	
-	int cnt ;
-	
-	cnt = fgetc(input) ;
-	cnt = cnt - 48 ;	
-	*Size = cnt ;
-	cnt = fgetc(input) ;
-
-	while (cnt != '\n') {
-		cnt = cnt - 48 ;
-		*Size = (*Size * 10) + cnt ;
-		cnt = fgetc(input) ;
-	}		 
-
-	long * Array = (long *)calloc(*Size + 1, sizeof(long)) ;
-
-	int i = 0 ;
-
-	while ((cnt = fgetc(input)) != EOF) {
-		if (cnt == '\n') {
-			i++ ;
-			cnt = fgetc(input) ;
-		}
-		cnt = cnt - 48 ;
-		Array[i] = (Array[i] * 10) + cnt ;
-	}
-
-	fclose(input) ;
-
-	return Array ;
-}
-
 void printArr(int array[]) 
 {
 	int i;
@@ -53,7 +12,6 @@ void printArr(int array[])
 
 	printf("\n");
 }
-
 
 void merge(int arr[], int low, int mid, int high)
 {
@@ -92,7 +50,7 @@ void merge(int arr[], int low, int mid, int high)
 		i++;
 		k++;
 	}
-	
+
 	while (j < m)
 	{
 		arr[k] = temp2[j];
